@@ -1,0 +1,26 @@
+workspace:
+  root: C:\BATCH_FIRE
+  logs: ${workspace.root}\logs
+  files: ${workspace.root}\files
+  data: ${workspace.root}\data
+
+server:
+  port: ${port:8080}
+
+spring:
+  application:
+    name: batchfire
+
+######## LOGGING-SETTINGS ##########
+logging:
+  level:
+    root: info
+    com.hyekyoung.batchstudy.batchfire: info
+
+  ## LOGBACK SETTINGS
+  config: classpath:logback/logback-spring.xml
+  file:
+    service: sb
+    home: ${workspace.logs}
+    server: local
+    name: ${logging.file.home}\${logging.file.server}\${logging.file.server}_${logging.file.service}.log # ADMIN SERVER READ LOG FILE PATH

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <!--  PROFILE PROPS  -->
+    <springProperty scope="context" name="SERVER" source="logging.file.server"/>
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.home"/>
+    <springProperty scope="context" name="SERVICE" source="logging.file.service"/>
+
+    <springProperty scope="context" name="ROOT_LEVEL" source="logging.level.root"/>
+    <springProperty scope="context" name="SERVICE_LEVEL" source="logging.level.com.hyekyoung.batchstudy.batchfire"/>
+
+    <!--  COMMON PROPS  -->
+    <property name="LOG_DIR" value="${LOG_HOME}/${SERVER}"/>
+    <property name="LOG_FILE_EXT" value="log"/>
+    <property name="LOG_LEVEL" value="info"/>
+    <property name="LOG_PATTERN" value='%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [traceId=%X{traceId}] %-5level %logger{36}.%M - %msg%n'/>
+    <!--  DAY PROPS -->
+    <property name="LOG_FILE_NAME" value="${SERVICE}"/>
+    <property name="ERROR_LOG_FILE_NAME" value="error_${SERVICE}"/>
+    <!--  MONTH PROPS  -->
+    <property name="MONTH_LOG_FILE_NAME" value="month_${SERVICE}"/>
+    <property name="ERROR_MONTH_LOG_FILE_NAME" value="error_month_${SERVICE}"/>
+    <!--  DAILY BATCH LOGGING  -->
+    <property name="DAILY_BATCH_LOG_FILE_NAME" value="month_logging_${SERVICE}"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SERVER}_${LOG_FILE_NAME}.${LOG_FILE_EXT}</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyyMMdd,aux}/${SERVER}_${LOG_FILE_NAME}_%d{yyyyMMdd}.${LOG_FILE_EXT}</fileNamePattern>
+            <maxHistory>31</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_DIR}/${SERVER}_${ERROR_LOG_FILE_NAME}.${LOG_FILE_EXT}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyyMMdd,aux}/${SERVER}_${ERROR_LOG_FILE_NAME}_%d{yyyyMMdd}.${LOG_FILE_EXT}</fileNamePattern>
+            <maxHistory>31</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="MONTH_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SERVER}_${MONTH_LOG_FILE_NAME}.${LOG_FILE_EXT}</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyyMM,aux}/${SERVER}_${MONTH_LOG_FILE_NAME}_%d{yyyyMMdd}.${LOG_FILE_EXT}</fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="MONTH_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_DIR}/${SERVER}_${ERROR_MONTH_LOG_FILE_NAME}.${LOG_FILE_EXT}</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyyMM,aux}/${SERVER}_${ERROR_MONTH_LOG_FILE_NAME}_%d{yyyyMMdd}.${LOG_FILE_EXT}</fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="DAILY_BATCH_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SERVER}_${DAILY_BATCH_LOG_FILE_NAME}.${LOG_FILE_EXT}</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyyMM,aux}/${SERVER}_${DAILY_BATCH_LOG_FILE_NAME}_%d{yyyyMM}.${LOG_FILE_EXT}</fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+
+    <springProfile name="local">
+        <root level="${ROOT_LEVEL}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR"/>
+        </root>
+        <logger name="com.dkbmc.batch" level="${SERVICE_LEVEL}" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR"/>
+        </logger>
+        <logger name="com.dkbmc.batch.biz.common.logging.domain.DailyBatchSingleton" level="info" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DAILY_BATCH_LOG_FILE"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="${ROOT_LEVEL}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR"/>
+            <appender-ref ref="MONTH_FILE"/>
+            <appender-ref ref="MONTH_ERROR"/>
+        </root>
+        <logger name="com.dkbmc.batch" level="${SERVICE_LEVEL}" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR"/>
+            <appender-ref ref="MONTH_FILE"/>
+            <appender-ref ref="MONTH_ERROR"/>
+        </logger>
+        <logger name="com.dkbmc.batch.biz.common.logging.domain.DailyBatchSingleton" level="info" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DAILY_BATCH_LOG_FILE"/>
+        </logger>
+    </springProfile>
+</configuration>
