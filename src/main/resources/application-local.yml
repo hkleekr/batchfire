@@ -24,3 +24,27 @@ logging:
     home: ${workspace.logs}
     server: local
     name: ${logging.file.home}\${logging.file.server}\${logging.file.server}_${logging.file.service}.log # ADMIN SERVER READ LOG FILE PATH
+
+########## INTERFACE-INFO ###########
+interface:
+### INTERFACE SYSTEM CONNECT INFO ###
+  connect-info:
+    jco:
+      erp:
+        use-able: false
+        destination: "erp"
+        client: "100"
+        user: "012011"
+        password: "Info#12345"
+        language: "en"
+        pool-capacity: "3"
+        pool-peak-limit: "10"
+        host: "172.17.0.36" #DEV
+        system-id: "ERP_DEV"
+        host-type: true #host 연결 구분
+        system-number: "00"
+        group:
+        r3name:
+        connection-timeout: 30000
+        timeout-check-period: 60000
+        max-wait-time: 30000
