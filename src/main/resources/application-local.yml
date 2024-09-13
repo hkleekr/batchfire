@@ -48,3 +48,11 @@ interface:
         connection-timeout: 30000
         timeout-check-period: 60000
         max-wait-time: 30000
+  mapping-info:
+    IF_ERP_SF_0001:
+      interface-id: "IF_ERP_SF_0001"
+      chunk-size: 500
+      source-system: "erp"
+      source-endpoint: "RFC_NAME"
+      target-system: "gateway"
+      target-endpoint: "/api/test1"
