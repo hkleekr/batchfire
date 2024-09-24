@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum ErrorCode {
     JOB_FAIL("JOB000", "[JOB_ERROR] JOB 실패"),
     JCO_FAIL("JCO000", "[JCO_ERROR] JCO 실패"),
+    REST_FAIL("REST000", "[REST_ERROR] REST 실패"),
     ;
 
     private final String code;

@@ -24,10 +24,6 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = StepInfo.class)
-})
 public class StepInfo {
     @JsonProperty("STEP_IDX")
     private String stepIdx;

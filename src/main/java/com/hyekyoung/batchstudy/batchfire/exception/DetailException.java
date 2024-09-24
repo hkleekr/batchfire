@@ -37,4 +37,9 @@ public class DetailException extends RuntimeException {
         this.code = "NON_CHECKED";
         this.message = causeMessage;
     }
+
+    public DetailException(ErrorCode errorCode, String causeMessage) {
+        this.code = errorCode.getCode();
+        this.message = causeMessage;
+    }
 }

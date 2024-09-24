@@ -38,4 +38,12 @@ public class ConnectInfo {
         private String group;
         private String r3name;
     }
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    public static class Rest {
+        private String name;
+        private String host;
+    }
 }

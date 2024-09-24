@@ -26,6 +26,10 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = StepInfo.class)
+})
 public class JobInfo {
     @JsonProperty("JOB_NAME")
     private String jobName;
