@@ -20,7 +20,7 @@ Content-Type: application/json
   }
 ]
 
-###  IF_ERP_SF_0001, IF_ERP_SF_0002
+###  IF_ERP_SF_0001, IF_ERP_SF_0002, IF_ERP_SF_0003, IF_ERP_SF_0004
 POST http://localhost:8080/batch/start/Job
 Content-Type: application/json
 
@@ -31,6 +31,13 @@ Content-Type: application/json
   },
   {
     "beanName": "IF_ERP_SF_0002_JOB",
+    "jobParam": {}
+  },{
+  "beanName": "IF_ERP_SF_0003_JOB",
+  "jobParam": {}
+},
+  {
+    "beanName": "IF_ERP_SF_0004_JOB",
     "jobParam": {}
   }
 ]
