@@ -18,7 +18,7 @@ import java.util.Map;
 public abstract class AbstractCommonJobConfiguration<T> {
     /**
      * 생성자
-     * @param jpbRepository
+     * @param jobRepository
      * @param jobBuilderFactory
      * @param stepBuilderFactory
      * @param mappingProperties
@@ -28,7 +28,7 @@ public abstract class AbstractCommonJobConfiguration<T> {
      * @param connectManagers
      */
     protected AbstractCommonJobConfiguration(
-            JobRepository jpbRepository
+            JobRepository jobRepository
             , JobBuilderFactory jobBuilderFactory
             , StepBuilderFactory stepBuilderFactory
             , Map<String, MappingInfo> mappingProperties
@@ -37,7 +37,7 @@ public abstract class AbstractCommonJobConfiguration<T> {
             , ModelMapper modelMapper
             , ConnectManagers connectManagers
     ){
-        this.jpbRepository = jpbRepository;
+        this.jobRepository = jobRepository;
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.mappingProperties = mappingProperties;
@@ -47,7 +47,7 @@ public abstract class AbstractCommonJobConfiguration<T> {
         this.connectManagers = connectManagers;
     }
 
-    protected final JobRepository jpbRepository;
+    protected final JobRepository jobRepository;
     protected final JobBuilderFactory jobBuilderFactory;
     protected final StepBuilderFactory stepBuilderFactory;
     protected final Map<String, MappingInfo> mappingProperties;

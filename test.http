@@ -1,0 +1,14 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###  IF_ERP_SF_0001
+POST http://localhost:8080/batch/start/Job
+Content-Type: application/json
+
+[
+  {
+    "beanName": "IF_ERP_SF_0001_JOB",
+    "jobParam": {}
+  }
+]
