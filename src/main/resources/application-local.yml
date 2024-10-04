@@ -86,3 +86,10 @@ interface:
       source-endpoint: "RFC_NAME"
       target-system: "gateway"
       target-endpoint: "/api/test1"
+    IF_ERP_SF_0002:
+      interface-id: "IF_ERP_SF_0002"
+      chunk-size: 500
+      source-system: "erp"
+      source-endpoint: "RFC_NAME"
+      target-system: "gateway"
+      target-endpoint: "/api/test2"

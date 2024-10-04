@@ -1,8 +1,8 @@
-package com.hyekyoung.batchstudy.batchfire.biz.erp.IF_ERP_SF_0001.job;
+package com.hyekyoung.batchstudy.batchfire.biz.erp.IF_ERP_SF_0002.job;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.hyekyoung.batchstudy.batchfire.biz.erp.IF_ERP_SF_0001.dto.RTDataDto;
+import com.hyekyoung.batchstudy.batchfire.biz.erp.IF_ERP_SF_0002.dto.RTDataDto;
 import com.hyekyoung.batchstudy.batchfire.config.job.AbstractCommonJobConfiguration;
 import com.hyekyoung.batchstudy.batchfire.config.job.CommonJobErrorListener;
 import com.hyekyoung.batchstudy.batchfire.config.job.CommonJobListener;
@@ -26,8 +26,8 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-public class IF_ERP_SF_0001JobConfiguration extends AbstractCommonJobConfiguration<RTDataDto> {
-    protected IF_ERP_SF_0001JobConfiguration(
+public class IF_ERP_SF_0002JobConfiguration extends AbstractCommonJobConfiguration<RTDataDto> {
+    protected IF_ERP_SF_0002JobConfiguration(
             JobRepository jobRepository
             , JobBuilderFactory jobBuilderFactory
             , StepBuilderFactory stepBuilderFactory
@@ -40,8 +40,8 @@ public class IF_ERP_SF_0001JobConfiguration extends AbstractCommonJobConfigurati
         super(jobRepository, jobBuilderFactory, stepBuilderFactory, mappingProperties, objectMapper, xmlMapper, modelMapper, connectManagers);
     }
 
-    private final String jobName = "IF_ERP_SF_0001";
-    private final String interfaceId = "IF_ERP_SF_0001";
+    private final String jobName = "IF_ERP_SF_0002";
+    private final String interfaceId = "IF_ERP_SF_0002";
     private int chunkSize;
 
     @Bean(jobName + jobSuffix)
@@ -71,29 +71,23 @@ public class IF_ERP_SF_0001JobConfiguration extends AbstractCommonJobConfigurati
      * mappingProperties.get(interfaceId): Job Properties
      * connectManagers: Interface Connector
      * objectMapper, xmlMapper, modelMapper: Data Convertor
-     * @return IF_ERP_SF_0001JobReader
+     * @return IF_ERP_SF_0002JobReader
      */
     @Bean(jobName + readerSuffix)
     @Override
     public ItemReader<RTDataDto> createReader() {
-        return new IF_ERP_SF_0001JobReader(mappingProperties.get(interfaceId), connectManagers, objectMapper, xmlMapper, modelMapper);
+        return new IF_ERP_SF_0002JobReader(mappingProperties.get(interfaceId), connectManagers, objectMapper, xmlMapper, modelMapper);
     }
 
     /**
      * mappingProperties.get(interfaceId): Job Properties
      * connectManagers: Interface Connector
      * objectMapper, xmlMapper, modelMapper: Data Convertor
-     * @return IF_ERP_SF_0001JobWriter
+     * @return IF_ERP_SF_0002JobWriter
      */
     @Bean(jobName + writerSuffix)
     @Override
     public ItemWriter<RTDataDto> createWriter() {
-        return new IF_ERP_SF_0001JobWriter(mappingProperties.get(interfaceId), connectManagers, objectMapper, xmlMapper, modelMapper);
+        return new IF_ERP_SF_0002JobWriter(mappingProperties.get(interfaceId), connectManagers, objectMapper, xmlMapper, modelMapper);
     }
-
-
-//    public static org.quartz.job getQuartzJob() {
-//
-//    }
-
-}
+    }
