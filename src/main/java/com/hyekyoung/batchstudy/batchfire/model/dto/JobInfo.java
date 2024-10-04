@@ -44,11 +44,11 @@ public class JobInfo {
     @JsonProperty("JOB_DURATION_TIME")
     private String durationTimeStr;
     @JsonProperty("JOB_START_TIME_RAW")
-    private String startTimeRaw;
+    private Long startTimeRaw;
     @JsonProperty("JOB_END_TIME_RAW")
-    private String endTimeRaw;
+    private Long endTimeRaw;
     @JsonProperty("JOB_DURATION_TIME_RAW")
-    private String durationTimeRaw;
+    private Long durationTimeRaw;
     @JsonProperty("STEPS")
     private List<StepInfo> stepInfos;
     @JsonProperty("STEP_COUNT")

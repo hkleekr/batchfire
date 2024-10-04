@@ -7,10 +7,29 @@ workspace:
 server:
   port: ${port:8080}
 
+######## SPRING-SETTINGS ##########
 spring:
   application:
     name: batchfire
-
+  jackson:
+    dataformat:
+      xml:
+        enabled: false
+  h2:
+    console:
+      enabled: true
+  ## JDBC(H2) SESSION
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+  ## BATCH SETTINGS
+  batch:
+    job:
+      enabled: false
+      names: ${job.name:EMPTY}
+    jdbc:
+      initialize-schema: always
 ######## LOGGING-SETTINGS ##########
 logging:
   level:
@@ -29,6 +48,13 @@ logging:
 interface:
 ### INTERFACE SYSTEM CONNECT INFO ###
   connect-info:
+    jdbc:
+      h2:
+        type: h2
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:file:${workspace.data}\${logging.file.server}\${logging.file.service}_h2
+        username: sa
+        password:
     jco:
       erp:
         use-able: false
@@ -48,6 +74,10 @@ interface:
         connection-timeout: 30000
         timeout-check-period: 60000
         max-wait-time: 30000
+    rest:
+      gateway:
+        name: gateway
+        host: http://localhost:9000
   mapping-info:
     IF_ERP_SF_0001:
       interface-id: "IF_ERP_SF_0001"

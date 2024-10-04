@@ -46,4 +46,16 @@ public class ConnectInfo {
         private String name;
         private String host;
     }
+
+    @Data
+    @ToString
+    @NoArgsConstructor
+    public static class Jdbc {
+        private String type;
+        private String driverClassName;
+        private String url;
+        private String userName;
+        private String password;
+        private String mapperLocations;
+    }
 }
