@@ -4,9 +4,9 @@ import com.hyekyoung.batchstudy.batchfire.exception.WrapperException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.batch.api.listener.JobListener;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +17,11 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public abstract class AbstractSpringScheduler {
     protected final ThreadPoolTaskExecutor threadPoolTaskExecutor;
-    protected final JobListener jobListener;
+    protected final JobLauncher jobLauncher;
 
-    public AbstractSpringScheduler(ThreadPoolTaskExecutor threadPoolTaskExecutor, JobListener jobListener) {
+    public AbstractSpringScheduler(ThreadPoolTaskExecutor threadPoolTaskExecutor, JobLauncher jobLauncher) {
         this.threadPoolTaskExecutor = threadPoolTaskExecutor;
-        this.jobListener = jobListener;
+        this.jobLauncher = jobLauncher;
     }
 
     /**
